@@ -1,0 +1,14 @@
+@mixin border-top-bottom($size: thin, $type: solid, $color: black) {
+	border: {
+		top: $size $type $color;
+		bottom: $size $type $color;
+	}
+}
+
+@mixin double-gradient($color1: #fff, $color2: #ddd, $dir: top) {
+	@include background(linear-gradient($dir, $color1, $color2));
+}
+
+@mixin drop-shadow($x: 3px, $y: 3px, $blur: 5px, $color: black) {
+	@include single-box-shadow($x, $y, $blur, 0, $color);
+}

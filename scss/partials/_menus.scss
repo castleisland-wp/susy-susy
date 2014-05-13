@@ -1,0 +1,134 @@
+//standard navigation mixins for _s theme.
+
+@mixin menu-sizing($fontSize: 100%, $width:8em, $top:34px, $pad1:0.3em, $pad2: 0, $pad3: 0.5em) 
+{
+	ul 
+	{
+		li 
+		{
+			width: $width;
+			font-size: $fontSize;
+			padding: $pad1;
+			ul 
+			{
+				top: $top;
+				padding: $pad2;
+				li 
+				{
+					padding: $pad3;
+					ul 
+					{
+						top: 0;
+						left: 100%;
+						ul 
+						{
+							left: 100%
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin menu-color(
+			$barcolor: transparent, 
+			$bartext: #000,
+			$barhilite: #000,
+			$barhitext: #fff, 
+			$subback: #000,
+			$subBackHi: #333,
+			$subText: #eee,
+			$subTextHi: #fff)
+{
+	background-color: $barcolor;
+	ul {
+		li {
+			a {
+				color: $bartext;
+				&:visited {
+					color: $bartext;
+				}
+			}
+			&:hover {
+				background-color: $barhilite;
+				> a {
+					color: $barhitext;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+			ul {
+				background-color: $subback;
+				li{
+					a {
+						color: $subText;
+						&:visited {
+							color: $subText;
+						}
+					}
+					&:hover {
+						background-color: $subBackHi;
+						> a {
+							color: $subTextHi;
+							&:visited {
+								color: $subTextHi;
+							}
+						}
+					}
+					ul {
+						li {
+							> a {
+								color: $subText;
+								&:visited {
+									color: $subText;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}	
+}
+
+@mixin menu-change-width($width: 9em) {
+	ul {
+		li {
+			width: $width;
+		}
+	}
+}
+@mixin menu-has-child($entity: '\0020 \00BB') {
+	 ul {
+	 	ul {
+			 .menu-item-has-children {
+			 	> a {
+					&:after {
+						content: $entity;
+					}
+			 	}
+			}
+	 	}
+	 }
+}
+
+@mixin hide-home {
+	.home {
+		#masthead {
+			ul > .current-menu-item {
+				display: none;
+			}
+		}
+	}
+}
+
+@mixin hide-second-level-same {
+	#masthead ul ul {
+		> .current-menu-item {
+			display: none;
+		}
+	}
+}
+

@@ -1,0 +1,146 @@
+@import "susy";
+@import "breakpoint";
+@import "compass";
+@import "partials/*";
+
+$susy: (
+	columns: 12,
+	gutters: 1/4,
+	math: fluid,
+	output: float,
+	gutter-position: after,
+);
+
+$gridwide: (4 7 4);
+$gutterwide: 1/3;
+
+$widelayoutmap: $gridwide $gutterwide float fluid after;
+
+$break1: 540px;
+$break2: 730px;
+$break3: 1024px;
+$break4: 1368px;
+
+$w0: 95%;
+$w1: 530px;
+$w2: 720px;
+$w3: 960px;
+$w4: 1280px;
+
+/*
+	Mixins
+*/
+@mixin left-push($grid, $gutters, $span, $width) {
+	$spans: susy( 1, 1, $grid, $gutters, wider);
+	$total: susy-sum($grid, $gutters);
+	$margin: (1 - ($width * ($spans/$total))/$width) * (100%) * -1; 
+	.span-1 {
+		content: $spans;
+		width: $total;
+		margin-left: $margin;
+	}
+}
+
+/*
+    Grid Layout
+*/
+body {
+	background-color: black;
+}
+
+#primary, #secondary, #tertiary, .site-branding, #colophon {
+	padding: 12px;
+}
+
+#page {
+	@include container($w0);
+
+	@include breakpoint($break1) {
+		@include container($w1);
+	}
+
+	@include breakpoint($break2) {
+		@include container($w2);
+	}
+
+	@include breakpoint($break3) {
+		@include container($w3);
+	}
+
+	@include breakpoint($break4) {
+		@include container($w4);
+	}
+}
+#masthead #site-navigation {
+	@include menu-sizing ($width: 180px);
+	@include menu-color;
+}
+
+#masthead {
+	background-color: $basecolor4;
+}
+
+#content {
+	@include container(100%);
+}
+
+#primary {
+	background-color: $basecolor;
+	margin-bottom: 12px;
+
+	@include breakpoint($break2) {
+		@include span(first 7);
+	}
+
+	@include breakpoint($break3) {
+		@include span(first 8);
+	}
+
+	@include breakpoint($break4) {
+		@include with-layout($widelayoutmap) {
+			@include pre(1);
+			@include span( 1  at 2);
+		}
+	}
+}
+
+#secondary {
+	background-color: $basecolor2;
+
+	@include breakpoint($break2) {
+		@include span(last 5);
+	}
+
+	@include breakpoint($break3) {
+		@include span(last 4);
+	}
+
+	@include breakpoint($break4) {
+		@include with-layout($widelayoutmap) {
+			@include span( first 1);
+			margin-left: (100% - span(first 1)) * -1;
+		}
+	}
+}
+
+#tertiary {
+	background-color: $basecolor3;
+
+	@include breakpoint($break2) {
+		@include span(last 5);
+	}
+
+	@include breakpoint($break3) {
+		@include span(last 4);
+	}
+
+	@include susy-breakpoint($break4, $widelayoutmap) {
+		@include span(last 1);
+	}
+}
+
+#colophon {
+	background-color: $basecolor5;
+}
+
+

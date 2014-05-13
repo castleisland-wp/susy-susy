@@ -1,0 +1,47 @@
+@mixin anchors($textcolor: #000, $hover: #000, $visited: #000) {
+	a {
+		color: $textcolor;
+		text-decoration: none;
+		&:hover {
+			color: $hover;
+			text-decoration: underline;
+		}
+		&:visited {
+			color: $visited;
+		}
+	}
+}
+
+@mixin drop-capitol($size: 500%, $weight: bold, $top: u(-2.5rem), $right: 4px, $bottom: u(-4rem)) {
+	text-indent: 0;
+	&:first-letter {
+		float: left;
+		font-size: $size;
+		font-weight: $weight;
+		margin-top: $top;
+		padding-right: $right;
+		margin-bottom: $bottom;
+	}
+}
+
+@mixin remove-dropcap {
+	text-indent: inherit;
+	&:first-letter {
+		float: none;
+		font-size: 100%;
+		font-weight: inherit;
+		padding-top: inherit;
+		padding-right: inherit;
+		margin-bottom: inherit;
+	}
+}
+
+html {
+	font-size: 62.5%;
+}
+
+@each $head,$size in (h1:250%, h2:200%, h3: 167%, h4: 133%) {
+	#{$head} {
+		font-size: $size;
+	}
+}

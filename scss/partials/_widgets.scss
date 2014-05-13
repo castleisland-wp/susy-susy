@@ -1,0 +1,52 @@
+@mixin widget-lists($style: none, $left: u(-2rem)) {
+	.widget {
+		ul {
+			list-style: $style;
+			li {
+				margin-left: $left;
+			}
+		}
+	}
+}
+
+@mixin widget-calendar($even: transparent, $head: transparent, $headtext: black, $foot: transparent, $foottext: black, $caption: 100%, $padding: 0em 0.5em) {
+	table {
+		caption {
+			font: {
+				size: $caption;
+			}
+		}
+		thead tr th, tbody tr td {
+			text-align: right;
+		}
+		thead tr th, tbody tr td, tfoot tr td {
+			padding: $padding;
+		} 
+		thead {
+			background-color: $head;
+			color: $headtext;
+		}
+		tbody {
+			tr {
+				&:nth-child(even) {	
+					background-color: $even;
+				}
+			}
+		}
+		tfoot {
+			background-color: $foot;
+			color: $foottext;
+			a {
+				color: $foottext;
+				&:hover, &:visited {
+					color: $foottext;
+				}
+			}
+			tr {
+				#next {
+					text-align: right;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+$basecolor: #AABCDE;
+$sidebar1: #f00;
+$sidebar2: #0f0;
+$headerColor: #ff0;
+$footerColor: #f0f;
+
+$light: lightness($basecolor);
+$sat: saturation($basecolor);
+//$contrast: invert($basecolor);
+
+$basecolor2: change-color($sidebar1, $lightness: $light, $saturation: $sat);
+$basecolor3: change-color($sidebar2, $lightness: $light, $saturation: $sat);
+$basecolor4: change-color($headerColor, $lightness: $light, $saturation: $sat);
+$basecolor5: change-color($footerColor, $lightness: $light, $saturation: $sat);
+
+
+@if $light >= 50 {
+	$contrast: darken($basecolor, 33) !global;
+	$similar: lighten($basecolor,100 - (100 - ($light/2))) !global;
+} @else {
+	$contrast: lighten($basecolor, 33) !global;
+	$similar: darken($basecolor, $light/2) !global;
+}
+
+$menu1: change-color($basecolor, $lightness: 25%);
+$menu2: adjust-color($menu1, $saturation: 20%, $lightness: -5%);
+$calendar1: change-color($basecolor, $lightness: 98%);
+$calendar2: change-color($basecolor, $lightness: 10%);
+$titlecolor: change-color($basecolor, $lightness: 15%);
+$link: change-color($basecolor, $lightness: 15%);
+$hover: change-color($basecolor, $lightness: 33%);
+$visited: change-color($basecolor, $lightness: 15%, $saturation: 5%);
+$shadowcolor: change-color($basecolor, $lightness: 67%, $saturation: 10%);

@@ -1,0 +1,146 @@
+//This mixins execute the reponsive design. They require Susy to work.
+
+@mixin double-file($columns: 4) {
+//Double File spreads posts on the home page and archive pages two-wide across the content area.
+//Specify the number of susy columns per post. 
+
+	$total: $columns * 2;
+
+	$second: $columns + 1;
+
+	.home, .archive {
+		#content #primary #main {
+			@include container(100%);
+		}
+		article {
+			&:nth-of-type(odd) {
+				clear: both;
+				@include span($columns of $total);
+			}
+			&:nth-of-type(even) {
+				clear: none;
+				@include span($columns of $total at $second);
+			}
+		}
+	}
+}
+
+//Triple file spreads three articles across the home or archive page. 
+//Specify the number of susy columns per post. 
+
+@mixin triple-file($columns: 4) {
+	$total: $columns * 3;
+	$second: $columns + 1;
+	$third: ($columns * 2) + 1;
+
+
+	.home, .archive {
+		#content #primary #main {
+			@include container(100%);
+		}
+		article {
+			&:nth-of-type(3n+1) {
+				clear:both;
+				@include span($columns of $total);
+			}
+			&:nth-of-type(3n+2) {
+				clear: none;
+				@include span($columns of $total at $second);
+			}
+			&:nth-of-type(3n) {
+				clear: none;
+				@include span($columns of $total at $third);
+			}
+		}
+	}
+}
+
+// The multi-column-widget mixin allows you to dynamically span widgets across a footer region.
+
+// This mixin requires Susy to work.
+
+//     	$cols: 		the number of widgets in one row.
+//     	$percol:	the number of susy columns per span.
+//		$elem:		the element to wrap(defaults to "aside")
+
+@mixin multi-column-widgets($cols: 3, $percol: 4, $elem: aside) {
+	$total-span: $cols * $percol;
+	$at: 1;
+
+	@if $cols == 1 {
+		#{$elem} {
+			clear: both;
+		}
+	} @else if $cols == 2 {
+		#{$elem} {	
+			&:nth-of-type(odd) {
+				clear: both;
+				@include span($percol of $total-span);
+			}
+			$at: $percol + 1;
+			&:nth-of-type(even) {
+				clear:none;
+				@include span($percol of $total-span at ($percol + 1));
+			}
+		}
+	} @else {
+		$N: $cols + 'n';
+		$child: $N + '+1';
+		$at: $percol + 1;
+		#{$elem} {
+			&:nth-of-type(#{$N}+1) {
+				clear: both; 
+				@include span($percol of $total-span);
+			}
+			@for $i from 2 through ($cols - 1) {
+				&:nth-of-type(#{$N}+#{$i}) {
+					clear: none;
+					@include span($percol of $total-span at $at);
+				}
+				$at: $at + $percol;
+			}
+			&:nth-of-type(#{$N}) {
+				clear: none;
+				@include span($percol of $total-span at $at);
+			}
+		}
+	}
+}
+
+@mixin multi-column-float($cols: 3, $percol: 4) {
+	$total-span: $cols * $percol;
+	$at: 1;
+
+	@if $cols == 1 {
+		clear: both;
+	} @else if $cols == 2 {	
+		&:nth-of-type(odd) {
+			clear: both;
+			@include span($percol of $total-span);
+		}
+		$at: $percol + 1;
+		&:nth-of-type(even) {
+			clear:none;
+			@include span($percol of $total-span at ($percol + 1));
+		}
+	} @else {
+		$N: $cols + 'n';
+		$child: $N + '+1';
+		$at: $percol + 1;
+		&:nth-of-type(#{$N}+1) {
+			clear: both; 
+			@include span($percol of $total-span);
+		}
+		@for $i from 2 through ($cols - 1) {
+			&:nth-of-type(#{$N}+#{$i}) {
+				clear: none;
+				@include span($percol of $total-span at $at);
+			}
+			$at: $at + $percol;
+		}
+		&:nth-of-type(#{$N}) {
+			clear: none;
+			@include span($percol of $total-span at $at);
+		}
+	}
+}
